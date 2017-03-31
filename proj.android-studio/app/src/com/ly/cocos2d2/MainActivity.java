@@ -7,25 +7,34 @@ import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.opengl.CCGLSurfaceView;
 
+//http://www.tuicool.com/articles/qINfmm
 public class MainActivity extends Activity {
-	
-	static{
-		System.loadLibrary("gdx");
-	}
-	CCGLSurfaceView view;
+
+    static {
+        System.loadLibrary("gdx");//加载
+    }
+
+    CCGLSurfaceView view;//是GLSurfaceView子类，GLSurfaceView是一个视图，继承至SurfaceView，它内嵌的surface专门负责OpenGL渲染。
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = new CCGLSurfaceView(this);
-        CCDirector director = CCDirector.sharedDirector();
-		director.setDeviceOrientation(CCDirector.kCCDeviceOrientationPortrait);
-        director.attachInView(view);
-        director.setAnimationInterval(1/30.0);
-        director.setDisplayFPS(true);
+        CCDirector director = CCDirector.sharedDirector();// 获得导演类==设置OpenGL视图，设置是否显示每帧时间，设置每帧时间，设置运行场景，设置或控制类；
+
+//        设置导演类的属性
+        director.setDeviceOrientation(CCDirector.kCCDeviceOrientationPortrait);//设置设备方向，竖或横屏；
+        director.attachInView(view);//导演绑定OpenGL渲染
+        director.setAnimationInterval(1 / 30.0);//设置每帧时间
+        director.setDisplayFPS(true);//设置是否显示每帧时间
+
+//        设置android UI；
         setContentView(view);
-        CCScene scene = CCScene.node();
-        FlyppyBirdLayer layer = new FlyppyBirdLayer(this);
-        scene.addChild(layer);
-        director.runWithScene(scene);
+
+        CCScene scene = CCScene.node(); //初始化场景类
+        FlyppyBirdLayer layer = new FlyppyBirdLayer(this);//初始化场景类
+        scene.addChild(layer);//增加子场景
+
+        director.runWithScene(scene);//运行场景
     }
 }
