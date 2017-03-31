@@ -21,12 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-package org.cocos2dx.cpp;
+package com.ly.cocos2d2;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import com.ly.cocos2d2.GameLayer;
 
 import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;

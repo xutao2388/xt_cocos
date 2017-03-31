@@ -18,7 +18,7 @@
         <!--org.cocos2dx.cpp.AppActivity-->
         <!--com.ly.cocos2d2.MainActivity-->
         <activity
-            android:name="org.cocos2dx.cpp.AppActivity"
+            android:name="com.ly.cocos2d2.AppActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
