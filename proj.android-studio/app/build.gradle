@@ -43,7 +43,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':libcocos2dx')
+//    compile project(':libcocos2dx')
     compile files('libs/cocos2d-android.jar')
     compile files('libs/box2d.jar')
 }

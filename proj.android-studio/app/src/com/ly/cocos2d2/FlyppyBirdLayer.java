@@ -30,9 +30,8 @@ import java.util.Random;
 
 public class FlyppyBirdLayer extends CCLayer implements ContactListener {
     protected static final float PTM_RATIO = 32.0f;
-    protected static final float FPS = (float) CCDirector.sharedDirector()
-            .getAnimationInterval();
-    private World world;
+    protected static final float FPS = (float) CCDirector.sharedDirector().getAnimationInterval();//Frames Per Second,每秒传输帧数
+    private World world;//世界，第三方库libGDX，
     private CCSprite bird;
     private CGSize screenSize;
     private Context mContext;
