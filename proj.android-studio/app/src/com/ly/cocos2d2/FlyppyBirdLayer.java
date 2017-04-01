@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.badlogic.gdx.math.Vector2;
@@ -29,6 +30,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class FlyppyBirdLayer extends CCLayer implements ContactListener {
+    private static final String TAG = "FlyppyBirdLayer";
     protected static final float PTM_RATIO = 32.0f;
     protected static final float FPS = (float) CCDirector.sharedDirector().getAnimationInterval();//Frames Per Second,每秒传输帧数,已经在MainActivity中set过；
     private World world;//世界，第三方库libGDX，== initWorld
@@ -169,11 +171,16 @@ public class FlyppyBirdLayer extends CCLayer implements ContactListener {
 
     //    该方法已经被 scheduleUpdate 自动调用了
     public void update(float dt) {
-        System.out.println(world.getBodyCount());
-        world.step(FPS, 8, 1);//Box2D的world是通过定期地调用Step方法来实现动画的。
-//      第一个是timeStep，它会告诉Box2D自从上次更新以后已经过去多长时间了，直接影响着刚体会在这一步移动多长距离。
+//        world.getBodyCount()：此函数返回world中所有body的数量，但要注意，新建一个物理世界，使用此方法时，不会得到零，而是返回一个1；
+//       world.getBodyList()：此函数表面上看应该是返回物理世界中的Body的链表，其实他是返回的一个body对象，就是World中的body链表的表头；
+        Log.i(TAG, "update: " + world.getBodyCount());
+
+//      第一个是timeStep，即让世界模拟的时间。,它会告诉Box2D自从上次更新以后已经过去多长时间了，直接影响着刚体会在这一步移动多长距离。
 //      不建议使用delta time来作为timeStep的值，因为delta time会上下浮动，刚体就不能以相同的速度移动了。
 //      第二和第三个参数是迭代次数。它们被用于决定物理模拟的精确程度，也决定着计算刚体移动所需要的时间。
+//      参数一是设置时标，也就是帧数,一般默认为60帧；设置了调用Step方法的时间间隔，60表示1/60.0秒调用一次.
+//      参数二是速度迭代变量；参数三是位置迭代变量，
+        world.step(FPS, 8, 1);//Box2D的world是通过不停的调用Step方法来实现动画的。
 
         Iterator<Body> it = world.getBodies(); // Iterate over the bodies in the physics world
         while (it.hasNext()) {

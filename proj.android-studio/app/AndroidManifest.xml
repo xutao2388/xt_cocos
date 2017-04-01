@@ -15,10 +15,9 @@
             android:name="android.app.lib_name"
             android:value="MyGame" />
 
-        <!--AppActivity-->
-        <!--MainActivity-->
+        <!--GbxActivity  ==  JBox2dActivity  == Cocos2dActivity -->
         <activity
-            android:name="com.ly.cocos2d2.MainActivity"
+            android:name="com.ly.cocos2d2.GbxActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="landscape"

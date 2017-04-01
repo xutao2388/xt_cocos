@@ -7,11 +7,14 @@ import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.opengl.CCGLSurfaceView;
 
-//http://www.tuicool.com/articles/qINfmm
-public class MainActivity extends Activity {
+/*
+* 使用libgdx引擎开发的小鸟飞跃
+* http://www.tuicool.com/articles/qINfmm
+* */
+public class GbxActivity extends Activity {
 
     static {
-        System.loadLibrary("gdx");//加载
+        System.loadLibrary("gdx");//表示先加载libgdx.so,Java的JNI机制
     }
 
     CCGLSurfaceView view;//是GLSurfaceView子类，GLSurfaceView是一个视图，继承至SurfaceView，它内嵌的surface专门负责OpenGL渲染。
