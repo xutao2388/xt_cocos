@@ -20,6 +20,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = new CCGLSurfaceView(this);
+//        设置android UI；
+        setContentView(view);
+
         CCDirector director = CCDirector.sharedDirector();// 获得导演类==设置OpenGL视图，设置是否显示每帧时间，设置每帧时间，设置运行场景，设置或控制类；
 
 //        设置导演类的属性
@@ -27,9 +30,6 @@ public class MainActivity extends Activity {
         director.attachInView(view);//导演绑定OpenGL渲染
         director.setAnimationInterval(1 / 30.0);//设置每帧时间
         director.setDisplayFPS(true);//设置是否显示每帧时间
-
-//        设置android UI；
-        setContentView(view);
 
         CCScene scene = CCScene.node(); //初始化场景类
         FlyppyBirdLayer layer = new FlyppyBirdLayer(this);//初始化场景类

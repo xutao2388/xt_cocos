@@ -18,6 +18,7 @@ import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.ccColor3B;
 
+/*demos*/
 public class GameLayer extends CCLayer {
     private static final String TAG = "GameLayer";
     private CCSprite player1, player2;

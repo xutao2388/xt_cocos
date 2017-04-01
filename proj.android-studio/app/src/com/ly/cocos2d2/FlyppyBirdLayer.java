@@ -30,7 +30,7 @@ import java.util.Random;
 
 public class FlyppyBirdLayer extends CCLayer implements ContactListener {
     protected static final float PTM_RATIO = 32.0f;
-    protected static final float FPS = (float) CCDirector.sharedDirector().getAnimationInterval();//Frames Per Second,每秒传输帧数
+    protected static final float FPS = (float) CCDirector.sharedDirector().getAnimationInterval();//Frames Per Second,每秒传输帧数,已经在MainActivity中set过；
     private World world;//世界，第三方库libGDX，== initWorld
     private CCSprite bird;//游戏背景、NPC、人物、道具等。在cocos2d-x引擎中，只要是用图片展示的，基本上需要使用精灵类。== addBird
     private CGSize screenSize;
@@ -167,9 +167,14 @@ public class FlyppyBirdLayer extends CCLayer implements ContactListener {
         addChild(ground);
     }
 
+    //    该方法已经被 scheduleUpdate 自动调用了
     public void update(float dt) {
         System.out.println(world.getBodyCount());
-        world.step(FPS, 8, 1);
+        world.step(FPS, 8, 1);//Box2D的world是通过定期地调用Step方法来实现动画的。
+//      第一个是timeStep，它会告诉Box2D自从上次更新以后已经过去多长时间了，直接影响着刚体会在这一步移动多长距离。
+//      不建议使用delta time来作为timeStep的值，因为delta time会上下浮动，刚体就不能以相同的速度移动了。
+//      第二和第三个参数是迭代次数。它们被用于决定物理模拟的精确程度，也决定着计算刚体移动所需要的时间。
+
         Iterator<Body> it = world.getBodies(); // Iterate over the bodies in the physics world
         while (it.hasNext()) {
             Body b = it.next();
@@ -232,9 +237,8 @@ public class FlyppyBirdLayer extends CCLayer implements ContactListener {
         }
     };
 
-    //             最后，我们需要碰撞检测
     @Override
-    public void beginContact(Contact contact) {
+    public void beginContact(Contact contact) {//当刚体发生碰撞开始的时候调用
         if (contact.getFixtureA().getBody().getUserData() == bird || contact.getFixtureB().getBody().getUserData() == bird) {
             stopGame();
             handler.sendEmptyMessage(0);
@@ -243,19 +247,21 @@ public class FlyppyBirdLayer extends CCLayer implements ContactListener {
     }
 
     @Override
-    public void endContact(Contact arg0) {
+    public void endContact(Contact arg0) {//当刚体结束碰撞时调用
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void postSolve(Contact arg0, ContactImpulse arg1) {
+    public void postSolve(Contact arg0, ContactImpulse arg1) {////碰撞结束参数计算设置；在两个物体碰撞反应中的每个步骤中被处理调用。可以在里面做一些后续的接触操作如销毁body;
+//        如果接触了，则调用impulse.getNormalImpulses()方法生成一个float类型的数组，然后将第一个值赋给maxImpulse变量。
+//        这个数组保存了两个碰撞体之间所有接触点的校正后的冲击力。
+//        接下来我们对冲击力数组进行循环，将其中最大的冲击力赋值给maxImpulse变量。最后如果这个冲击力超过400f的话，就给这个动态刚体一个旋转的角速度。
         // TODO Auto-generated method stub
-
     }
 
     @Override
-    public void preSolve(Contact arg0, Manifold arg1) {
+    public void preSolve(Contact arg0, Manifold arg1) {////碰撞开始前调用
         // TODO Auto-generated method stub
 
     }
