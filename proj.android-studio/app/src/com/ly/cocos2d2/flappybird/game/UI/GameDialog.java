@@ -17,13 +17,13 @@ import com.ly.cocos2d2.flappybird.util.Constants;
 
 public class GameDialog extends Stage {
 	WorldController worldController;
-	
+
 	public GameDialog(WorldController worldController) {
 		super(new StretchViewport(Constants.VIEWPORT_GUI_WIDTH,
 				Constants.VIEWPORT_GUI_HEIGHT));
 		this.worldController = worldController;
 	}
-	
+
 	public void startView() {
 		clear();
 		// tutorial
@@ -35,48 +35,48 @@ public class GameDialog extends Stage {
 		addActor(tutorial);
 		addActor(textReady);
 	}
-	
+
 	public void gameView() {
 		clear();
-		// pause ��ť
+		// pause 按钮
 		Button pause = new Button(new TextureRegionDrawable(Assets.instance.assetUI.buttonPause),
-				new TextureRegionDrawable(Assets.instance.assetUI.buttonResume), 
+				new TextureRegionDrawable(Assets.instance.assetUI.buttonResume),
 				new TextureRegionDrawable(Assets.instance.assetUI.buttonResume));
 		pause.setBounds(410, 784, 50, 50);
 		pause.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-			return true;
+				return true;
 			}
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-			worldController.pauseOrResume();
+				worldController.pauseOrResume();
 			}
 		});
-		
+
 		addActor(pause);
-				
+
 	}
-	
+
 	public void endView() {
 		clear();
-		
-		// ���� 
-		int medalLevel = (worldController.score < 10)   ? 0 : 
-						 (worldController.score < 100)  ? 1 : 
-						 (worldController.score < 1000) ? 2 : 3; 
+
+		// 奖牌
+		int medalLevel = (worldController.score < 10)   ? 0 :
+				(worldController.score < 100)  ? 1 :
+						(worldController.score < 1000) ? 2 : 3;
 		final Image medal = new Image(Assets.instance.assetUI.medals.get(medalLevel));
 		medal.setBounds(93, 375, 75, 72);
-		
-		// ��������
+
+		// 分数动画
 		final ScoreActor scoreActor = new ScoreActor(worldController.score, 393, 430, false);
-		
-		// ��߷���
-		int bestScore = worldController.prefs.getInteger(Constants.BEST_SCORE_KEY); 
+
+		// 最高分数
+		int bestScore = worldController.prefs.getInteger(Constants.BEST_SCORE_KEY);
 		final ScoreActor bestScoreActor = new ScoreActor(bestScore, 393, 350, true);
-				
-		
-		// game over �ı�
+
+
+		// game over 文本
 		Image textGameOver = new Image(Assets.instance.assetUI.textGameOver);
 		textGameOver.setBounds(80, 563, 321, 80);
 		// actions
@@ -84,11 +84,11 @@ public class GameDialog extends Stage {
 		Action textGameOverSeqAction = Actions.sequence(Actions.moveTo(80, 580, 0.1f), Actions.moveTo(80, 563, 0.1f));
 		Action textGameOverParAction = Actions.parallel(textGameAlphaAction, textGameOverSeqAction);
 		textGameOver.addAction(textGameOverParAction);
-		
-		// score ���
+
+		// score 面板
 		Image scorePanel = new Image(Assets.instance.assetUI.scorePanel);
 		scorePanel.setBounds(51, -215, 378, 215);
-		// actions 
+		// actions
 		Action endRunAction = Actions.run(new Runnable() {
 			@Override public void run() {
 				addActor(medal);
@@ -98,15 +98,15 @@ public class GameDialog extends Stage {
 		});
 		Action scorePanelDelayAction = Actions.delay(0.5f);
 		Action scorePanelSeqAction = Actions.sequence(
-				scorePanelDelayAction, 
+				scorePanelDelayAction,
 				Actions.moveTo(51, 320, 0.3f),
 				endRunAction);
 		scorePanel.addAction(scorePanelSeqAction);
-		
-		// play ��ť
+
+		// play 按钮
 		CustomButton play = new CustomButton(Assets.instance.assetUI.buttonPlay);
 		play.setBounds(43, -108, 173, 108);
-		// actions 
+		// actions
 		Action playDelayAction = Actions.delay(1f);
 		Action playSeqAction = Actions.sequence(playDelayAction, Actions.moveTo(43, 175, 0));
 		play.addAction(playSeqAction);
@@ -120,8 +120,8 @@ public class GameDialog extends Stage {
 				worldController.restart();
 			}
 		});
-		
-		// score ��ť
+
+		// score 按钮
 		CustomButton score = new CustomButton(Assets.instance.assetUI.buttonScore);
 		score.setBounds(263, -108, 173, 108);
 		// actions 
@@ -133,7 +133,7 @@ public class GameDialog extends Stage {
 		addActor(scorePanel);
 		addActor(play);
 		addActor(score);
-		
+
 	}
-	
+
 }

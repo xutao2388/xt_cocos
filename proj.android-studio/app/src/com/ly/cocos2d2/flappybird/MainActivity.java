@@ -10,8 +10,8 @@ public class MainActivity extends AndroidApplication {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+        AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
         
-        initialize(new FlappyBirdGame(), cfg);
+        initialize(new FlappyBirdGame(), configuration);
     }
 }
