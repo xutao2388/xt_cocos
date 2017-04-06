@@ -42,7 +42,11 @@ public class Assets implements Disposable, AssetErrorListener {
         // 设定资源管理器的错误处理对象句柄
         assetManager.setErrorListener(this);
 
-        // 载入纹理集
+        // 载入纹理集= images/flappy-bird.pack
+        // 手机计算资源有限，cpu、gpu十分宝贵，如果图片分成单个进行加载渲染非常浪费资源，因此需要将多个小图片合并到一个大图片中，达到一次加载多次使用的目的；
+        //对于TexturePacker合成的图片，使用TextureAtlas读取，读取代码示例如下：
+        //加TextureAtlas atlas=new TextureAtlas(Gdx.files.internal("macken.pack"));
+        //和TextureRegion text=(TextureRegion)atlas.findRegion("imagename");
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
 
         // 载入声音文件

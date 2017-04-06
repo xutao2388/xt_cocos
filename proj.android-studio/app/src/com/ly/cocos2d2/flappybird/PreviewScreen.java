@@ -18,6 +18,8 @@ import com.ly.cocos2d2.flappybird.game.object.Bird;
 import com.ly.cocos2d2.flappybird.game.object.Land;
 import com.ly.cocos2d2.flappybird.util.Constants;
 
+/*
+* 菜单页面：开始 + 小鸟飞行 + copyright等*/
 public class PreviewScreen implements Screen {
     private Bird bird;                        // bird object
     private Land land;                        // land object
@@ -100,13 +102,8 @@ public class PreviewScreen implements Screen {
         stage.dispose();
     }
 
-    private void update(float deltaTime) {
-        bird.update(deltaTime);            // wave animation
-        land.update(deltaTime);            // move animation
-    }
-
     @Override
-    public void render(float delta) {
+    public void render(float delta) {//开始绘制
         update(Gdx.graphics.getDeltaTime());
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);//清屏
@@ -124,6 +121,11 @@ public class PreviewScreen implements Screen {
 
         stage.act();
         stage.draw();
+    }
+
+    private void update(float deltaTime) {
+        bird.update(deltaTime);            // wave animation
+        land.update(deltaTime);            // move animation
     }
 
     @Override
